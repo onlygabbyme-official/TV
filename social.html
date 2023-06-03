@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comune di Esempio</title>
+  <style>
+    /* Stili CSS per il sito */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f0f0f0;
+      color: #333;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .dark-mode body {
+      background-color: #333;
+      color: #fff;
+    }
+
+    header {
+      background-color: #fff;
+      color: #333;
+      padding: 20px;
+      text-align: center;
+    }
+
+    nav {
+      background-color: #f0f0f0;
+      padding: 10px;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      transition: background-color 0.3s ease;
+    }
+
+    .dark-mode nav {
+      background-color: #333;
+    }
+
+    nav ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+    }
+
+    nav ul li {
+      margin-right: 20px;
+    }
+
+    nav ul li a {
+      color: #333;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 16px;
+      padding: 5px 10px;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    nav ul li a:hover {
+      background-color: #333;
+      color: #fff;
+    }
+
+    main {
+      margin: 20px;
+    }
+
+    h2 {
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: #666;
+      line-height: 1.5;
+    }
+
+    footer {
+      background-color: #333;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+      position: relative;
+      transition: background-color 0.3s ease;
+    }
+
+    .dark-mode footer {
+      background-color: #111;
+    }
+
+    .app-bar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #f0f0f0;
+      padding: 10px 0;
+      border-top: 1px solid #ccc;
+      border-bottom: 1px solid #ccc;
+      border-radius: 5px;
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s ease;
+      position: absolute;
+      bottom: 70px;
+      left: 0;
+      width: 100%;
+    }
+
+    .dark-mode .app-bar {
+      background-color: #333;
+      border-color: #666;
+      box-shadow: 0px 2px 4px rgba(255, 255, 255, 0.1);
+    }
+
+    .app-bar button {
+      background-color: #333;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      margin: 10px;
+      border-radius: 5px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .dark-mode .app-bar button {
+      background-color: #666;
+    }
+
+    .app-bar button:hover {
+      background-color: #666;
+    }
+
+    .dark-mode .app-bar button:hover {
+      background-color: #999;
+    }
+
+    .dark-mode footer {
+      background-color: #111;
+    }
+
+    .toggle-dark-mode {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 9999;
+    }
+
+    .toggle-dark-mode input[type="checkbox"] {
+      display: none;
+    }
+
+    .toggle-dark-mode label {
+      display: inline-block;
+      background-color: #fff;
+      color: #333;
+      padding: 10px 20px;
+      border-radius: 30px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .toggle-dark-mode label:before {
+      content: '\f185';
+      font-family: 'Font Awesome 5 Free';
+      font-weight: 900;
+      margin-right: 10px;
+    }
+
+    .toggle-dark-mode input[type="checkbox"]:checked + label {
+      background-color: #333;
+      color: #fff;
+    }
+
+    .toggle-dark-mode input[type="checkbox"]:checked + label:before {
+      content: '\f186';
+    }
+
+    /* Menu a nove puntini */
+    .dots-menu {
+      display: inline-block;
+      position: relative;
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+    }
+
+    .dots-menu::before {
+      content: "";
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background-color: #333;
+      border-radius: 50%;
+      left: 12px;
+      top: 12px;
+      transition: background-color 0.3s ease;
+    }
+
+    .dots-menu::after {
+      content: "";
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background-color: #333;
+      border-radius: 50%;
+      left: 12px;
+      top: 18px;
+      transition: background-color 0.3s ease;
+    }
+
+    .dots-menu:hover::before,
+    .dots-menu:hover::after {
+      background-color: #666;
+    }
+
+    .dots-menu.active::before {
+      background-color: #fff;
+    }
+
+    .dots-menu.active::after {
+      background-color: #fff;
+      top: 24px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Comune di Esempio</h1>
+  </header>
+
+  <nav>
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Servizi</a></li>
+      <li><a href="#">Amministrazione</a></li>
+      <li><a href="#">Contatti</a></li>
+    </ul>
+  </nav>
+  
+  <main>
+    <h2 class="fade-in">Benvenuti al Comune di Esempio</h2>
+    <p class="fade-in">Questa è la pagina principale del nostro sito web.</p>
+    <p class="fade-in">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eu convallis justo. Fusce nec semper risus. Sed vestibulum dui in eros vulputate, nec rhoncus massa commodo. Nullam ultricies, lorem vitae blandit fringilla, enim est aliquam turpis, sed vestibulum ligula ex id ipsum. Fusce vel enim rutrum, commodo lacus vitae, tincidunt tellus. Vivamus consectetur felis in nunc fermentum auctor. Integer elementum mi in ex aliquet, sed pharetra enim feugiat. Fusce id turpis interdum, malesuada ligula ac, facilisis tortor. Aliquam ut vulputate odio. Fusce pulvinar dapibus elit, eget maximus dui tristique vitae. Sed lacinia auctor bibendum. Curabitur finibus malesuada dolor, et consequat neque placerat a.</p>
+    <p class="fade-in">Curabitur aliquam lobortis mauris, eu pellentesque neque interdum id. Vestibulum facilisis ligula sed nisl dictum, a tincidunt mauris aliquet. Integer posuere lorem vitae tincidunt fringilla. Mauris lacinia urna lectus, eget pharetra est interdum at. Aliquam at commodo massa. Integer laoreet mauris sed leo fringilla elementum. Nulla et aliquam neque, at auctor dui. Etiam sed ligula malesuada, pretium justo eget, dignissim erat.</p>
+    <p class="fade-in">Donec nec tincidunt elit. Suspendisse maximus faucibus gravida. Suspendisse potenti. Ut eget faucibus mauris. Curabitur at metus sit amet diam cursus cursus. Vivamus condimentum fermentum mauris, at lacinia urna ullamcorper eu. In in iaculis lorem. Curabitur sagittis mauris id posuere laoreet. Mauris consectetur mauris ut lectus tempor hendrerit. Nullam varius volutpat gravida.</p>
+  </main>
+
+  <footer>
+    <div class="app-bar">
+      <button>Applicazione 1</button>
+      <button>Applicazione 2</button>
+      <button>Applicazione 3</button>
+    </div>
+    <p>&copy; 2023 Comune di Esempio. Tutti i diritti riservati.</p>
+  </footer>
+
+  <div class="toggle-dark-mode">
+    <input type="checkbox" id="darkModeToggle">
+    <label for="darkModeToggle"></label>
+  </div>
+
+  <div class="dots-menu"></div>
+
+  <script>
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    darkModeToggle.addEventListener('change', () => {
+      document.body.classList.toggle('dark-mode');
+      document.querySelector('nav').classList.toggle('dark-mode');
+      document.querySelector('footer').classList.toggle('dark-mode');
+      document.querySelector('.app-bar').classList.toggle('dark-mode');
+    });
+
+    const dotsMenu = document.querySelector('.dots-menu');
+    const nav = document.querySelector('nav ul');
+    dotsMenu.addEventListener('click', () => {
+      dotsMenu.classList.toggle('active');
+      nav.classList.toggle('active');
+    });
+  </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comune di Esempio</title>
+  <style>
+    /* Stili CSS per il sito */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f0f0f0;
+      color: #333;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .dark-mode body {
+      background-color: #333;
+      color: #fff;
+    }
+
+    header {
+      background-color: #fff;
+      color: #333;
+      padding: 20px;
+      text-align: center;
+    }
+
+    nav {
+      background-color: #f0f0f0;
+      padding: 10px;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      transition: background-color 0.3s ease;
+    }
+
+    .dark-mode nav {
+      background-color: #333;
+    }
+
+    nav ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+    }
+
+    nav ul li {
+      margin-right: 20px;
+    }
+
+    nav ul li a {
+      color: #333;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 16px;
+      padding: 5px 10px;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    nav ul li a:hover {
+      background-color: #333;
+      color: #fff;
+    }
+
+    main {
+      margin: 20px;
+    }
+
+    h2 {
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: #666;
+      line-height: 1.5;
+    }
+
+    footer {
+      background-color: #333;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+      position: relative;
+      transition: background-color 0.3s ease;
+    }
+
+    .dark-mode footer {
+      background-color: #111;
+    }
+
+    .app-bar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #f0f0f0;
+      padding: 10px 0;
+      border-top: 1px solid #ccc;
+      border-bottom: 1px solid #ccc;
+      border-radius: 5px;
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s ease;
+      position: absolute;
+      bottom: 70px;
+      left: 0;
+      width: 100%;
+    }
+
+    .dark-mode .app-bar {
+      background-color: #333;
+      border-color: #666;
+      box-shadow: 0px 2px 4px rgba(255, 255, 255, 0.1);
+    }
+
+    .app-bar button {
+      background-color: #333;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      margin: 10px;
+      border-radius: 5px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .dark-mode .app-bar button {
+      background-color: #666;
+    }
+
+    .app-bar button:hover {
+      background-color: #666;
+    }
+
+    .dark-mode .app-bar button:hover {
+      background-color: #999;
+    }
+
+    .dark-mode footer {
+      background-color: #111;
+    }
+
+    .toggle-dark-mode {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 9999;
+    }
+
+    .toggle-dark-mode input[type="checkbox"] {
+      display: none;
+    }
+
+    .toggle-dark-mode label {
+      display: inline-block;
+      background-color: #fff;
+      color: #333;
+      padding: 10px 20px;
+      border-radius: 30px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .toggle-dark-mode label:before {
+      content: '\f185';
+      font-family: 'Font Awesome 5 Free';
+      font-weight: 900;
+      margin-right: 10px;
+    }
+
+    .toggle-dark-mode input[type="checkbox"]:checked + label {
+      background-color: #333;
+      color: #fff;
+    }
+
+    .toggle-dark-mode input[type="checkbox"]:checked + label:before {
+      content: '\f186';
+    }
+
+    /* Menu a nove puntini */
+    .dots-menu {
+      display: inline-block;
+      position: relative;
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+    }
+
+    .dots-menu::before {
+      content: "";
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background-color: #333;
+      border-radius: 50%;
+      left: 12px;
+      top: 12px;
+      transition: background-color 0.3s ease;
+    }
+
+    .dots-menu::after {
+      content: "";
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background-color: #333;
+      border-radius: 50%;
+      left: 12px;
+      top: 18px;
+      transition: background-color 0.3s ease;
+    }
+
+    .dots-menu:hover::before,
+    .dots-menu:hover::after {
+      background-color: #666;
+    }
+
+    .dots-menu.active::before {
+      background-color: #fff;
+    }
+
+    .dots-menu.active::after {
+      background-color: #fff;
+      top: 24px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Comune di Esempio</h1>
+  </header>
+
+  <nav>
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Servizi</a></li>
+      <li><a href="#">Amministrazione</a></li>
+      <li><a href="#">Contatti</a></li>
+    </ul>
+  </nav>
+  
+  <main>
+    <h2 class="fade-in">Benvenuti al Comune di Esempio</h2>
+    <p class="fade-in">Questa è la pagina principale del nostro sito web.</p>
+    <p class="fade-in">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eu convallis justo. Fusce nec semper risus. Sed vestibulum dui in eros vulputate, nec rhoncus massa commodo. Nullam ultricies, lorem vitae blandit fringilla, enim est aliquam turpis, sed vestibulum ligula ex id ipsum. Fusce vel enim rutrum, commodo lacus vitae, tincidunt tellus. Vivamus consectetur felis in nunc fermentum auctor. Integer elementum mi in ex aliquet, sed pharetra enim feugiat. Fusce id turpis interdum, malesuada ligula ac, facilisis tortor. Aliquam ut vulputate odio. Fusce pulvinar dapibus elit, eget maximus dui tristique vitae. Sed lacinia auctor bibendum. Curabitur finibus malesuada dolor, et consequat neque placerat a.</p>
+    <p class="fade-in">Curabitur aliquam lobortis mauris, eu pellentesque neque interdum id. Vestibulum facilisis ligula sed nisl dictum, a tincidunt mauris aliquet. Integer posuere lorem vitae tincidunt fringilla. Mauris lacinia urna lectus, eget pharetra est interdum at. Aliquam at commodo massa. Integer laoreet mauris sed leo fringilla elementum. Nulla et aliquam neque, at auctor dui. Etiam sed ligula malesuada, pretium justo eget, dignissim erat.</p>
+    <p class="fade-in">Donec nec tincidunt elit. Suspendisse maximus faucibus gravida. Suspendisse potenti. Ut eget faucibus mauris. Curabitur at metus sit amet diam cursus cursus. Vivamus condimentum fermentum mauris, at lacinia urna ullamcorper eu. In in iaculis lorem. Curabitur sagittis mauris id posuere laoreet. Mauris consectetur mauris ut lectus tempor hendrerit. Nullam varius volutpat gravida.</p>
+  </main>
+
+  <footer>
+    <div class="app-bar">
+      <button>Applicazione 1</button>
+      <button>Applicazione 2</button>
+      <button>Applicazione 3</button>
+    </div>
+    <p>&copy; 2023 Comune di Esempio. Tutti i diritti riservati.</p>
+  </footer>
+
+  <div class="toggle-dark-mode">
+    <input type="checkbox" id="darkModeToggle">
+    <label for="darkModeToggle"></label>
+  </div>
+
+  <div class="dots-menu"></div>
+
+  <script>
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    darkModeToggle.addEventListener('change', () => {
+      document.body.classList.toggle('dark-mode');
+      document.querySelector('nav').classList.toggle('dark-mode');
+      document.querySelector('footer').classList.toggle('dark-mode');
+      document.querySelector('.app-bar').classList.toggle('dark-mode');
+    });
+
+    const dotsMenu = document.querySelector('.dots-menu');
+    const nav = document.querySelector('nav ul');
+    dotsMenu.addEventListener('click', () => {
+      dotsMenu.classList.toggle('active');
+      nav.classList.toggle('active');
+    });
+  </script>
+</body>
+</html>
